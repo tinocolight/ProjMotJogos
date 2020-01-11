@@ -1,6 +1,0 @@
-? Modelo 3D no ecrã
-? Classes “Camera” e “Ship”
-? Enum “MessageType”, classe “Message” e classe
-“MessageBus”
-? Classe “ShipPool”
-? Profiling da memória / garbage collector
