@@ -1,3 +1,4 @@
 # ProjMotJogos
 Projecto MJD - Intuíto : Multiplos elementos no ecra sem baixar o framerate
-Projecto continua em localização diferente: https://github.com/tinocolight/ProjMotJogos.git
+Este projecto continua o que foi iniciado numa localização diferente e está agora inactivo: https://github.com/tinocolight/ProjectoMJD.git
+
