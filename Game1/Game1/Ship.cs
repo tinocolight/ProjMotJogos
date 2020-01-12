@@ -108,7 +108,7 @@ namespace Game1
 
         public void LoadContent(ContentManager content)
         {
-            model = content.Load<Model>("modelo\\p1_saucer");
+            model = content.Load<Model>("modelo\\TESTE_COM_TEXTURAS");
         }
 
         public void Update(GameTime gameTime)
