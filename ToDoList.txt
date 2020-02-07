@@ -1,0 +1,12 @@
+[2020-02-07]
+
+Backlog:
+Organizar código
+Implementar Message Bus
+
+
+Rui:
+
+Jonas:
+
+Rafael:
