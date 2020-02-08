@@ -77,8 +77,10 @@ namespace Game1
             {
                 Ship ship = new Ship(new Vector3(random.Next(-ShipSeedArea, ShipSeedArea), random.Next(-ShipSeedArea, ShipSeedArea), random.Next(-ShipLimitArea, ShipLimitArea)), random, -ShipLimitArea, ShipLimitArea);
                 ship.LoadContent(Content);
+                
                 //Adiciona o elemento acabado de criar à lista
                 ships.Add(ship);
+                
             }
             // TODO: use this.Content to load your game content here
 
@@ -128,6 +130,7 @@ namespace Game1
                 }
 
             }
+            DebugShapeRenderer.AddBoundingSphere(Ship.boundingSphere,);
 
                 base.Update(gameTime);
         }

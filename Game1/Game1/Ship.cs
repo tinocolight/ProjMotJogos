@@ -11,6 +11,7 @@ namespace Game1
 {
     class Ship
     {
+        public static BoundingSphere boundingSphere;
         private float displayLimitFront;
         public float DisplayLimitFront
         {
@@ -125,13 +126,15 @@ namespace Game1
             }
 
             else if (this.ShipStatus == true) { this.ShipStatus = false; }
-
+            boundingSphere.Center = position;
         }
 
         public void Draw(Camera camera)
         {
             foreach (ModelMesh mesh in model.Model.Meshes)
             {
+                boundingSphere = BoundingSphere.CreateMerged(this.boundingSphere,mesh.BoundingSphere);
+                
                 foreach (BasicEffect effect in mesh.Effects)
                 {
                     effect.LightingEnabled = false;
