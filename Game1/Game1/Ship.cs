@@ -39,9 +39,9 @@ namespace Game1
             set { speed = value; }
         }
 
-        private Model model;
+        private ShipModel model;
 
-        public Model Model
+        public ShipModel Model
         {
             get { return model; }
             set { model = value; }
@@ -106,9 +106,9 @@ namespace Game1
             this.displayLimitBack = displayLimitFront;
         }
 
-        public void LoadContent(ContentManager content)
+       public void LoadContent(ContentManager content)
         {
-            model = content.Load<Model>("modelo\\TESTE_COM_TEXTURAS");
+            model = new ShipModel(content);
         }
 
         public void Update(GameTime gameTime)
@@ -130,7 +130,7 @@ namespace Game1
 
         public void Draw(Camera camera)
         {
-            foreach (ModelMesh mesh in model.Meshes)
+            foreach (ModelMesh mesh in model.Model.Meshes)
             {
                 foreach (BasicEffect effect in mesh.Effects)
                 {

@@ -18,7 +18,7 @@ namespace Game1
 
         private static int ShipSeedArea  = 40000;
         private static int ShipLimitArea = 400000;
-        private static int ShipCount = 6000;
+        private static int ShipCount = 600;
 
 
 
