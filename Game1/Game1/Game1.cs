@@ -16,12 +16,14 @@ namespace Game1
     public class Game1 : Game
     {
 
+
+
         private static int ShipSeedArea  = 40000;
         private static int ShipLimitArea = 400000;
         private static int ShipCount = 1000;
 
 
-
+       // GraphicsDevice graphicsDevice = new GraphicsDevice();
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
@@ -33,7 +35,8 @@ namespace Game1
         {
             graphics = new GraphicsDeviceManager(this);
 
-          //  graphics.SynchronizeWithVerticalRetrace = true;
+
+            //  graphics.SynchronizeWithVerticalRetrace = true;
             graphics.PreferMultiSampling = true;
             graphics.GraphicsProfile = GraphicsProfile.Reach;
          //   graphics.GraphicsProfile = GraphicsProfile.HiDef;
@@ -51,6 +54,7 @@ namespace Game1
         /// </summary>
         protected override void Initialize()
         {
+            DebugShapeRenderer.Initialize(GraphicsDevice);
             random = new Random();
 
             camera = new Camera(new Vector3(0, 0, 50), graphics);
@@ -73,7 +77,6 @@ namespace Game1
             {
                 Ship ship = new Ship(new Vector3(random.Next(-ShipSeedArea, ShipSeedArea), random.Next(-ShipSeedArea, ShipSeedArea), random.Next(-ShipLimitArea, ShipLimitArea)), random, -ShipLimitArea, ShipLimitArea);
                 ship.LoadContent(Content);
-
                 //Adiciona o elemento acabado de criar à lista
                 ships.Add(ship);
             }
