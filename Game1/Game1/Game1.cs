@@ -23,7 +23,6 @@ namespace Game1
         private static int ShipCount = 1000;
 
 
-       // GraphicsDevice graphicsDevice = new GraphicsDevice();
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
@@ -58,7 +57,6 @@ namespace Game1
             random = new Random();
 
             camera = new Camera(new Vector3(0, 0, 50), graphics);
-
             ships = new List<Ship>();
             //base está a chamar o construtor de uma classe acima de  Game1
             base.Initialize();
@@ -77,10 +75,11 @@ namespace Game1
             {
                 Ship ship = new Ship(new Vector3(random.Next(-ShipSeedArea, ShipSeedArea), random.Next(-ShipSeedArea, ShipSeedArea), random.Next(-ShipLimitArea, ShipLimitArea)), random, -ShipLimitArea, ShipLimitArea);
                 ship.LoadContent(Content);
-                
+
+
                 //Adiciona o elemento acabado de criar à lista
                 ships.Add(ship);
-                
+
             }
             // TODO: use this.Content to load your game content here
 
@@ -112,6 +111,8 @@ namespace Game1
                     ship.Speed -= .000005f*ship.Position.Z;  // somente para dar uma ideia de aceleração. Pode ser apagada a linha.
                     ship.Update(gameTime); }
 
+
+
                 else if (ship.ShipStatus == false && ship.Speed > 0f)
                 {
                         
@@ -119,6 +120,7 @@ namespace Game1
                     ship.Position = pos;
                     ship.ShipStatus = true;
                     ship.DisplayLimitFront = -ShipLimitArea;
+
                 }
                 else if (ship.ShipStatus == false && ship.Speed < 0f)
                 {
@@ -127,12 +129,12 @@ namespace Game1
                     ship.Position = pos;
                     ship.ShipStatus = true;
                     ship.DisplayLimitBack = ShipLimitArea;
+
                 }
 
             }
-            DebugShapeRenderer.AddBoundingSphere(Ship.boundingSphere,);
 
-                base.Update(gameTime);
+            base.Update(gameTime);
         }
 
         /// <summary>
@@ -147,8 +149,10 @@ namespace Game1
             {
                 if(ship.ShipStatus == true)
                 ship.Draw(camera);
-            }
 
+
+            }
+            DebugShapeRenderer.Draw(gameTime, camera.View, camera.Projection);
 
             base.Draw(gameTime);
         }

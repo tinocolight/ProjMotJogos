@@ -11,7 +11,8 @@ namespace Game1
 {
     class Ship
     {
-        public static BoundingSphere boundingSphere;
+        public static  BoundingSphere boundingSphere;
+
         private float displayLimitFront;
         public float DisplayLimitFront
         {
@@ -81,6 +82,8 @@ namespace Game1
             this.ShipStatus = startingStatus;
             this.displayLimitFront = 0f;
             this.displayLimitBack = displayLimitFront;
+
+
         }
 
 
@@ -94,6 +97,10 @@ namespace Game1
             this.ShipStatus = true;
             this.displayLimitFront = displayLimitFront;
             this.displayLimitBack = displayLimitBack;
+            
+
+
+
         }
 
         // Iniciação alternativa recorendo a polimorfismo com o objectivo de poder declarar naves mortas no início para a pool
@@ -110,6 +117,8 @@ namespace Game1
        public void LoadContent(ContentManager content)
         {
             model = new ShipModel(content);
+
+
         }
 
         public void Update(GameTime gameTime)
@@ -118,30 +127,39 @@ namespace Game1
             {
                 position.Z -= 2f * speed * gameTime.ElapsedGameTime.Milliseconds;
                 world = Matrix.CreateTranslation(position);
+                DebugShapeRenderer.AddBoundingSphere(boundingSphere, Color.DarkRed);
+
+
             }
             else if (Speed < 0 && displayLimitBack > position.Z)
             {
                 position.Z -= 2f * speed * gameTime.ElapsedGameTime.Milliseconds;
                 world = Matrix.CreateTranslation(position);
+                DebugShapeRenderer.AddBoundingSphere(boundingSphere, Color.DarkRed);
+
             }
 
             else if (this.ShipStatus == true) { this.ShipStatus = false; }
-            boundingSphere.Center = position;
+          boundingSphere.Center = position;
+
+
         }
 
         public void Draw(Camera camera)
         {
             foreach (ModelMesh mesh in model.Model.Meshes)
             {
-                boundingSphere = BoundingSphere.CreateMerged(this.boundingSphere,mesh.BoundingSphere);
-                
+                boundingSphere = BoundingSphere.CreateMerged(boundingSphere, mesh.BoundingSphere);
                 foreach (BasicEffect effect in mesh.Effects)
                 {
                     effect.LightingEnabled = false;
                     effect.World = Matrix.CreateFromQuaternion(Rotation) * world * Matrix.CreateScale(0.01f);
                     effect.View = camera.View;
                     effect.Projection = camera.Projection;
+
+
                 }
+
                 mesh.Draw();
             }
         }
