@@ -79,7 +79,7 @@ namespace Game1
 
             //farPlane = Terrain.altura + (Terrain.altura / 2);
 
-            farPlane = 10000f;
+            farPlane = 50000f;
 
             //Posição inicial da camâra
             position = new Vector3(30, 20, 30);

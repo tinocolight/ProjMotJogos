@@ -57,6 +57,7 @@
     <Compile Include="Ship.cs" />
     <Compile Include="ShipPool.cs" />
     <Compile Include="Camera.cs" />
+    <Compile Include="Skybox.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">

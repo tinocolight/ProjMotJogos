@@ -77,15 +77,13 @@ namespace Game1
         public void BoundingSphereSetDim()
         {
             Random random = new Random();
-       //     DebugShapeRenderer.AddBoundingSphere(boundingSphere, Color.DarkRed, 2.0f);
-           // Console.WriteLine("CENTER = " + boundingSphere.Center);
+      
 
             foreach (ModelMesh mesh in this.model.Model.Meshes)
             {
                 this.boundingSphere = BoundingSphere.CreateMerged(this.boundingSphere, mesh.BoundingSphere);
             }
-            //   this.boundingSphere.Center = new Vector3(random.Next(-1, 1), random.Next(-1, 1), random.Next(-400, 1));
-            //this.boundingSphere.Radius = random.Next(20, 20000);
+            
             
 
         }
@@ -105,22 +103,7 @@ namespace Game1
 
         }
 
-        /*
 
-        public Ship(Vector3 position, Random random, float displayLimitFront, float displayLimitBack)
-        {
-            this.position = position;
-            this.world = Matrix.CreateTranslation(position);
-            // rotação
-            this.rot = Quaternion.CreateFromAxisAngle(world.Up, MathHelper.TwoPi);
-            this.speed =  (float)random.Next(1, 3) / 10;
-            this.ShipStatus = true;
-            this.displayLimitFront = displayLimitFront;
-            this.displayLimitBack = displayLimitBack;
-        }
-
-
-/**/
 
         public Ship(Vector3 position, Random random, float displayLimitFront, float displayLimitBack)
         {
@@ -129,7 +112,7 @@ namespace Game1
             // rotação
             this.rot = Quaternion.CreateFromAxisAngle(world.Up, MathHelper.TwoPi);
             this.speed = (float)(Math.Pow(-1, (random.Next(-1, 1)))*(random.Next(1, 10))/10); // para gerar velocidades positivas e negativas excluíndo o zero
-            //this.speed = (float) random.Next(1, 3)/10;
+           
             this.ShipStatus = true;
             this.displayLimitFront = displayLimitFront;
             this.displayLimitBack = displayLimitBack;  
@@ -182,7 +165,7 @@ namespace Game1
             else if (this.ShipStatus == true) { this.ShipStatus = false; }
 
             boundingSphere.Center = position;
-            // boundingSphere.Radius = 200;
+         
 
         }
 

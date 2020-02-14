@@ -10,8 +10,8 @@ namespace Game1
 {
     public enum MessageType
     {
-        Type_A,
-        Type_B,
+        ShipPosition,
+        Colision,
         Type_C,
         Type_D
     }
