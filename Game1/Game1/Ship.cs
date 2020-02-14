@@ -12,8 +12,8 @@ namespace Game1
     class Ship
     {
         public BoundingSphere boundingSphere;
-      
 
+        Message posicionMessage;
         private float displayLimitFront;
         public float DisplayLimitFront
         {
@@ -73,7 +73,12 @@ namespace Game1
             get { return rot; }
             set { rot = value; }
         }
+        public void GetPosicionMessage()
+        {
+            posicionMessage = new Message();
+            posicionMessage.Type = MessageType.ShipPosition;
 
+        }
         public void BoundingSphereSetDim()
         {
             Random random = new Random();
@@ -100,7 +105,7 @@ namespace Game1
             this.displayLimitFront = 0f;
             this.displayLimitBack = displayLimitFront;
 
-
+            
         }
 
 
@@ -115,8 +120,8 @@ namespace Game1
            
             this.ShipStatus = true;
             this.displayLimitFront = displayLimitFront;
-            this.displayLimitBack = displayLimitBack;  
-
+            this.displayLimitBack = displayLimitBack;
+            GetPosicionMessage();
         }
 
     
@@ -165,8 +170,9 @@ namespace Game1
             else if (this.ShipStatus == true) { this.ShipStatus = false; }
 
             boundingSphere.Center = position;
-         
 
+            posicionMessage.V3Value = position;
+            MessageBus.Instance.SendMessage(posicionMessage);
         }
 
         public void Draw()
