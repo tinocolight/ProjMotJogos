@@ -18,9 +18,9 @@ namespace Game1
 
 
 
-        private static int ShipSeedArea  = 100;
-        private static int ShipLimitArea = 4000;
-        private static int ShipCount = 100;
+        private static int ShipSeedArea  = 1000;
+        private static int ShipLimitArea = 10000;
+        private static int ShipCount = 1000;
 
 
         GraphicsDeviceManager graphics;
@@ -53,7 +53,7 @@ namespace Game1
         /// </summary>
         protected override void Initialize()
         {
-            camera = new Camera(new Vector3(0, 0, 10), graphics);
+            camera = new Camera(new Vector3(0, 0, 100), graphics);
             DebugShapeRenderer.Initialize(GraphicsDevice);
             random = new Random();
 
@@ -111,7 +111,7 @@ namespace Game1
             {
                 if (ship.ShipStatus == true)
                 {
-                   //  ship.Speed -= .00005f*ship.Position.Z;  // somente para dar uma ideia de aceleração. Pode ser apagada a linha.
+                 //   ship.Speed += .00005f*ship.Position.Z;  // somente para dar uma ideia de aceleração. Pode ser apagada a linha.
                    // ship.Speed = 5;
                     ship.Update(gameTime); }
 

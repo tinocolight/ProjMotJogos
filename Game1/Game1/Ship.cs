@@ -128,7 +128,7 @@ namespace Game1
             this.world = Matrix.CreateTranslation(position);
             // rotação
             this.rot = Quaternion.CreateFromAxisAngle(world.Up, MathHelper.TwoPi);
-            this.speed = (float)(Math.Pow(-1, (random.Next(0, 0)))*(random.Next(1, 10))/10); // para gerar velocidades positivas e negativas excluíndo o zero
+            this.speed = (float)(Math.Pow(-1, (random.Next(-1, 1)))*(random.Next(1, 10))/10); // para gerar velocidades positivas e negativas excluíndo o zero
             //this.speed = (float) random.Next(1, 3)/10;
             this.ShipStatus = true;
             this.displayLimitFront = displayLimitFront;
