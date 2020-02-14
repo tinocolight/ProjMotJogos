@@ -27,7 +27,7 @@ namespace Game1
         SpriteBatch spriteBatch;
 
         List<Ship> ships;
-        Camera camera;
+        //Camera camera;
         Random random;
 
         public Game1()
@@ -39,8 +39,9 @@ namespace Game1
             graphics.PreferMultiSampling = true;
             graphics.GraphicsProfile = GraphicsProfile.Reach;
          //   graphics.GraphicsProfile = GraphicsProfile.HiDef;
-            graphics.PreferredBackBufferWidth = 1920;
-            graphics.PreferredBackBufferHeight = 1080;
+            graphics.PreferredBackBufferWidth = 1200;
+            graphics.PreferredBackBufferHeight = 800;
+            graphics.IsFullScreen = false;
             Content.RootDirectory = "Content";
 
         }
@@ -53,7 +54,8 @@ namespace Game1
         /// </summary>
         protected override void Initialize()
         {
-            camera = new Camera(new Vector3(0, 0, 100), graphics);
+            //camera = new Camera();
+            Camera.Initialize(GraphicsDevice);
             DebugShapeRenderer.Initialize(GraphicsDevice);
             random = new Random();
 
@@ -109,6 +111,7 @@ namespace Game1
 
             foreach (Ship ship in ships)
             {
+                Camera.Update(gameTime, GraphicsDevice, ship);
                 if (ship.ShipStatus == true)
                 {
                  //   ship.Speed += .00005f*ship.Position.Z;  // somente para dar uma ideia de aceleração. Pode ser apagada a linha.
@@ -156,7 +159,7 @@ namespace Game1
                 //     ship.boundingSphere.Center = ship.Position;
 
             }
-
+            
             base.Update(gameTime);
         }
 
@@ -168,10 +171,10 @@ namespace Game1
             foreach (Ship ship in ships)
             {
                 if(ship.ShipStatus)
-                ship.Draw(camera);
+                ship.Draw();
             }
 
-            DebugShapeRenderer.Draw(gameTime, camera.View, camera.Projection);
+            DebugShapeRenderer.Draw(gameTime, Camera.View, Camera.Projection);
             base.Draw(gameTime);
         }
     }

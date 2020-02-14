@@ -186,7 +186,7 @@ namespace Game1
 
         }
 
-        public void Draw(Camera camera)
+        public void Draw()
         {
             foreach (ModelMesh mesh in model.Model.Meshes)
             {
@@ -195,8 +195,8 @@ namespace Game1
                 {
                     effect.EnableDefaultLighting();
                     effect.World =  Matrix.CreateTranslation(position) * Matrix.CreateFromQuaternion(Rotation);
-                    effect.View = camera.View;
-                    effect.Projection = camera.Projection;
+                    effect.View = Camera.View;
+                    effect.Projection = Camera.Projection;
      
                 }          
                 mesh.Draw();
