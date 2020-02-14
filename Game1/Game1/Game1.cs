@@ -18,9 +18,9 @@ namespace Game1
 
 
 
-        private static int ShipSeedArea  = 40000;
-        private static int ShipLimitArea = 400000;
-        private static int ShipCount = 1000;
+        private static int ShipSeedArea  = 100;
+        private static int ShipLimitArea = 4000;
+        private static int ShipCount = 100;
 
 
         GraphicsDeviceManager graphics;
@@ -53,10 +53,11 @@ namespace Game1
         /// </summary>
         protected override void Initialize()
         {
+            camera = new Camera(new Vector3(0, 0, 10), graphics);
             DebugShapeRenderer.Initialize(GraphicsDevice);
             random = new Random();
 
-            camera = new Camera(new Vector3(0, 0, 50), graphics);
+
             ships = new List<Ship>();
             //base está a chamar o construtor de uma classe acima de  Game1
             base.Initialize();
@@ -73,12 +74,14 @@ namespace Game1
 
             for (int i = 0; i <= ShipCount; i++)
             {
-                Ship ship = new Ship(new Vector3(random.Next(-ShipSeedArea, ShipSeedArea), random.Next(-ShipSeedArea, ShipSeedArea), random.Next(-ShipLimitArea, ShipLimitArea)), random, -ShipLimitArea, ShipLimitArea);
+
+               Ship ship = new Ship(new Vector3(random.Next(-ShipSeedArea, ShipSeedArea), random.Next(-ShipSeedArea, ShipSeedArea), random.Next(-ShipLimitArea, ShipLimitArea)), random, -ShipLimitArea, ShipLimitArea);
                 ship.LoadContent(Content);
 
 
+
                 //Adiciona o elemento acabado de criar à lista
-                ships.Add(ship);
+               ships.Add(ship);
 
             }
             // TODO: use this.Content to load your game content here
@@ -108,52 +111,67 @@ namespace Game1
             {
                 if (ship.ShipStatus == true)
                 {
-                    ship.Speed -= .000005f*ship.Position.Z;  // somente para dar uma ideia de aceleração. Pode ser apagada a linha.
+                   //  ship.Speed -= .00005f*ship.Position.Z;  // somente para dar uma ideia de aceleração. Pode ser apagada a linha.
+                   // ship.Speed = 5;
                     ship.Update(gameTime); }
 
-
-
-                else if (ship.ShipStatus == false && ship.Speed > 0f)
+                /*
+                if (ship.ShipStatus == false)
                 {
-                        
+
                     Vector3 pos = new Vector3(random.Next(-ShipSeedArea, ShipSeedArea), random.Next(-ShipSeedArea, ShipSeedArea), ShipLimitArea);
                     ship.Position = pos;
                     ship.ShipStatus = true;
                     ship.DisplayLimitFront = -ShipLimitArea;
 
                 }
-                else if (ship.ShipStatus == false && ship.Speed < 0f)
-                {
+                */
 
-                    Vector3 pos = new Vector3(random.Next(-ShipSeedArea, ShipSeedArea), random.Next(-ShipSeedArea, ShipSeedArea), -ShipLimitArea);
-                    ship.Position = pos;
-                    ship.ShipStatus = true;
-                    ship.DisplayLimitBack = ShipLimitArea;
 
-                }
+                
+
+                                else if (ship.ShipStatus == false && ship.Speed > 0f)
+                                {
+
+                                    Vector3 pos = new Vector3(random.Next(-ShipSeedArea, ShipSeedArea), random.Next(-ShipSeedArea, ShipSeedArea), ShipLimitArea);
+                                    ship.Position = pos;
+                                    ship.ShipStatus = true;
+                                    ship.DisplayLimitFront = -ShipLimitArea;
+
+                                }
+                                else if (ship.ShipStatus == false && ship.Speed < 0f)
+                                {
+
+                                    Vector3 pos = new Vector3(random.Next(-ShipSeedArea, ShipSeedArea), random.Next(-ShipSeedArea, ShipSeedArea), -ShipLimitArea);
+                                    ship.Position = pos;
+                                    ship.ShipStatus = true;
+                                    ship.DisplayLimitBack = ShipLimitArea;
+
+                                }
+
+                    
+
+
+
+                //     ship.boundingSphere.Center = ship.Position;
 
             }
 
             base.Update(gameTime);
         }
 
-        /// <summary>
-        /// This is called when the game should draw itself.
-        /// </summary>
-        /// <param name="gameTime">Provides a snapshot of timing values.</param>
+
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             foreach (Ship ship in ships)
             {
-                if(ship.ShipStatus == true)
+                if(ship.ShipStatus)
                 ship.Draw(camera);
-
-
             }
-            DebugShapeRenderer.Draw(gameTime, camera.View, camera.Projection);
 
+            DebugShapeRenderer.Draw(gameTime, camera.View, camera.Projection);
             base.Draw(gameTime);
         }
     }

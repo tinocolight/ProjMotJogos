@@ -36,7 +36,7 @@ namespace Game1
         public Camera(Vector3 position, GraphicsDeviceManager graphics)
         { 
             view = Matrix.CreateLookAt(Vector3.Zero, Vector3.Forward, Vector3.Up);
-            projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(50f), graphics.PreferredBackBufferWidth / graphics.PreferredBackBufferHeight, 1, 5000);
+            projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(50f), graphics.PreferredBackBufferWidth / graphics.PreferredBackBufferHeight, 1, 100000);
         }
 
     }
