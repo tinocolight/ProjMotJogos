@@ -57,6 +57,18 @@
 /processorParam:DebugMode=Auto
 /build:shaders/SkyBox.fx
 
+#begin skyboxes/deserto.dds
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:skyboxes/deserto.dds
+
 #begin skyboxes/montanhas.dds
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -68,4 +80,16 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:skyboxes/montanhas.dds
+
+#begin skyboxes/purple_nebula.dds
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:skyboxes/purple_nebula.dds
 
