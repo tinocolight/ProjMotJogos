@@ -11,6 +11,8 @@ namespace Game1
 {
     class Ship
     {
+        Random randomS = new Random();
+
         public BoundingSphere boundingSphere;
 
         Message posicionMessage;
@@ -89,24 +91,8 @@ namespace Game1
                 this.boundingSphere = BoundingSphere.CreateMerged(this.boundingSphere, mesh.BoundingSphere);
             }
             
-            
-
         }
 
-
-
-
-        public Ship(Vector3 position, Random random, bool startingStatus)
-        {
-            this.position = position;
-            this.world = Matrix.CreateTranslation(position);
-            this.speed = (float)random.NextDouble();
-            this.ShipStatus = startingStatus;
-            this.displayLimitFront = 0f;
-            this.displayLimitBack = displayLimitFront;
-
-            
-        }
 
 
 
@@ -126,20 +112,6 @@ namespace Game1
 
     
 
-
-
-
-        // Iniciação alternativa recorendo a polimorfismo com o objectivo de poder declarar naves mortas no início para a pool
-        public Ship(Vector3 position, Random random, float displayLimitFront, bool startingStatus)
-        {
-            this.position = position;
-            this.world = Matrix.CreateTranslation(position);
-            this.speed = (float)random.NextDouble();
-            this.ShipStatus = startingStatus;
-            this.displayLimitFront = displayLimitFront;
-            this.displayLimitBack = displayLimitFront;
-        }
-
        public void LoadContent(ContentManager content)
         {
             model = new ShipModel(content);
@@ -147,7 +119,6 @@ namespace Game1
         }
 
         
-
 
         public void Update(GameTime gameTime)
         {

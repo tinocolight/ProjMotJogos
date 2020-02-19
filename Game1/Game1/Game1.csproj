@@ -41,17 +41,17 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Camera_old.cs" />
+    <Compile Include="Old_Unused_Classes\Camera_old.cs" />
     <Compile Include="DebugShapeRenderer.cs" />
     <Compile Include="ShipModel.cs" />
-    <Compile Include="Content\Camera.cs" />
-    <Compile Include="Content\Ship.cs" />
+    <Compile Include="Old_Unused_Classes\Camera.cs" />
+    <Compile Include="Old_Unused_Classes\Ship.cs" />
     <Compile Include="Game1.cs" />
-    <Compile Include="Message.cs" />
-    <Compile Include="MessageBus.cs" />
-    <Compile Include="MessageHandler.cs" />
-    <Compile Include="MessageSubscriber.cs" />
-    <Compile Include="MessageSubscriberController.cs" />
+    <Compile Include="MessageBus\Message.cs" />
+    <Compile Include="MessageBus\MessageBus.cs" />
+    <Compile Include="MessageBus\MessageHandler.cs" />
+    <Compile Include="MessageBus\MessageSubscriber.cs" />
+    <Compile Include="MessageBus\MessageSubscriberController.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Ship.cs" />
@@ -73,6 +73,7 @@
     <MonoGameContentReference Include="Content\Content.mgcb" />
     <None Include="app.manifest" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
