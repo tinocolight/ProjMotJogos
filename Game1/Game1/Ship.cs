@@ -11,6 +11,11 @@ namespace Game1
 {
     class Ship
     {
+        Random randomS = new Random();
+
+        public BoundingSphere boundingSphere;
+
+        Message posicionMessage;
         private float displayLimitFront;
         public float DisplayLimitFront
         {
@@ -39,9 +44,9 @@ namespace Game1
             set { speed = value; }
         }
 
-        private Model model;
+        private ShipModel model;
 
-        public Model Model
+        public ShipModel Model
         {
             get { return model; }
             set { model = value; }
@@ -70,17 +75,25 @@ namespace Game1
             get { return rot; }
             set { rot = value; }
         }
-
-
-        public Ship(Vector3 position, Random random, bool startingStatus)
+        public void GetPosicionMessage()
         {
-            this.position = position;
-            this.world = Matrix.CreateTranslation(position);
-            this.speed = (float)random.NextDouble();
-            this.ShipStatus = startingStatus;
-            this.displayLimitFront = 0f;
-            this.displayLimitBack = displayLimitFront;
+            posicionMessage = new Message();
+            posicionMessage.Type = MessageType.ShipPosition;
+
         }
+        public void BoundingSphereSetDim()
+        {
+            Random random = new Random();
+      
+
+            foreach (ModelMesh mesh in this.model.Model.Meshes)
+            {
+                this.boundingSphere = BoundingSphere.CreateMerged(this.boundingSphere, mesh.BoundingSphere);
+            }
+            
+        }
+
+
 
 
         public Ship(Vector3 position, Random random, float displayLimitFront, float displayLimitBack)
@@ -88,28 +101,24 @@ namespace Game1
             this.position = position;
             this.world = Matrix.CreateTranslation(position);
             // rotação
-            this.rot = Quaternion.CreateFromAxisAngle(world.Up, MathHelper.Pi);
-            this.speed = (float)(Math.Pow(-1, (random.Next(0, 0)))*(random.Next(2000, 60000))/10000); // para gerar velocidades positivas e negativas excluíndo o zero
+            this.rot = Quaternion.CreateFromAxisAngle(world.Up, MathHelper.TwoPi);
+            this.speed = (float)(Math.Pow(-1, (random.Next(-1, 1)))*(random.Next(1, 10))/10); // para gerar velocidades positivas e negativas excluíndo o zero
+           
             this.ShipStatus = true;
             this.displayLimitFront = displayLimitFront;
             this.displayLimitBack = displayLimitBack;
+            GetPosicionMessage();
         }
 
-        // Iniciação alternativa recorendo a polimorfismo com o objectivo de poder declarar naves mortas no início para a pool
-        public Ship(Vector3 position, Random random, float displayLimitFront, bool startingStatus)
+    
+
+       public void LoadContent(ContentManager content)
         {
-            this.position = position;
-            this.world = Matrix.CreateTranslation(position);
-            this.speed = (float)random.NextDouble();
-            this.ShipStatus = startingStatus;
-            this.displayLimitFront = displayLimitFront;
-            this.displayLimitBack = displayLimitFront;
+            model = new ShipModel(content);
+            BoundingSphereSetDim();
         }
 
-        public void LoadContent(ContentManager content)
-        {
-            model = content.Load<Model>("modelo\\TESTE_COM_TEXTURAS");
-        }
+        
 
         public void Update(GameTime gameTime)
         {
@@ -117,30 +126,43 @@ namespace Game1
             {
                 position.Z -= 2f * speed * gameTime.ElapsedGameTime.Milliseconds;
                 world = Matrix.CreateTranslation(position);
+
+
+
             }
             else if (Speed < 0 && displayLimitBack > position.Z)
             {
                 position.Z -= 2f * speed * gameTime.ElapsedGameTime.Milliseconds;
                 world = Matrix.CreateTranslation(position);
+
+
             }
 
             else if (this.ShipStatus == true) { this.ShipStatus = false; }
 
+            boundingSphere.Center = position;
+
+            posicionMessage.V3Value = position;
+            MessageBus.Instance.SendMessage(posicionMessage);
         }
 
-        public void Draw(Camera camera)
+        public void Draw()
         {
-            foreach (ModelMesh mesh in model.Meshes)
+            foreach (ModelMesh mesh in model.Model.Meshes)
             {
+
                 foreach (BasicEffect effect in mesh.Effects)
                 {
-                    effect.LightingEnabled = false;
-                    effect.World = Matrix.CreateFromQuaternion(Rotation) * world * Matrix.CreateScale(0.01f);
-                    effect.View = camera.View;
-                    effect.Projection = camera.Projection;
-                }
+                    effect.EnableDefaultLighting();
+                    effect.World =  Matrix.CreateTranslation(position) * Matrix.CreateFromQuaternion(Rotation);
+                    effect.View = Camera.View;
+                    effect.Projection = Camera.Projection;
+     
+                }          
                 mesh.Draw();
             }
+
+            DebugShapeRenderer.AddBoundingSphere(boundingSphere, Color.Red);
         }
 
     }

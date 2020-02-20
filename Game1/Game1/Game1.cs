@@ -16,85 +16,78 @@ namespace Game1
     public class Game1 : Game
     {
 
-        private static int ShipSeedArea  = 40000;
-        private static int ShipLimitArea = 400000;
-        private static int ShipCount = 6000;
 
+
+        private static int ShipSeedArea  = 5000;
+        private static int ShipLimitArea = 6000;
+        private static int ShipCount = 1000;
 
 
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-
+        Skybox skybox;
         List<Ship> ships;
-        Camera camera;
+        //Camera camera;
         Random random;
 
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
 
-          //  graphics.SynchronizeWithVerticalRetrace = true;
+
+            //  graphics.SynchronizeWithVerticalRetrace = true;
             graphics.PreferMultiSampling = true;
             graphics.GraphicsProfile = GraphicsProfile.Reach;
-         //   graphics.GraphicsProfile = GraphicsProfile.HiDef;
-            graphics.PreferredBackBufferWidth = 1920;
-            graphics.PreferredBackBufferHeight = 1080;
+           graphics.GraphicsProfile = GraphicsProfile.HiDef;
+            graphics.PreferredBackBufferWidth = 1200;
+            graphics.PreferredBackBufferHeight = 800;
+            graphics.IsFullScreen = false;
             Content.RootDirectory = "Content";
 
         }
 
-        /// <summary>
-        /// Allows the game to perform any initialization it needs to before starting to run.
-        /// This is where it can query for any required services and load any non-graphic
-        /// related content.  Calling base.Initialize will enumerate through any components
-        /// and initialize them as well.
-        /// </summary>
+
         protected override void Initialize()
         {
+            //camera = new Camera();
+            Camera.Initialize(GraphicsDevice);
+            DebugShapeRenderer.Initialize(GraphicsDevice);
             random = new Random();
 
-            camera = new Camera(new Vector3(0, 0, 50), graphics);
 
             ships = new List<Ship>();
             //base está a chamar o construtor de uma classe acima de  Game1
             base.Initialize();
         }
 
-        /// <summary>
-        /// LoadContent will be called once per game and is the place to load
-        /// all of your content.
-        /// </summary>
         protected override void LoadContent()
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
+            skybox = new Skybox(Content);
             for (int i = 0; i <= ShipCount; i++)
             {
-                Ship ship = new Ship(new Vector3(random.Next(-ShipSeedArea, ShipSeedArea), random.Next(-ShipSeedArea, ShipSeedArea), random.Next(-ShipLimitArea, ShipLimitArea)), random, -ShipLimitArea, ShipLimitArea);
+
+               Ship ship = new Ship(new Vector3(random.Next(-ShipSeedArea, ShipSeedArea), random.Next(-ShipSeedArea, ShipSeedArea), random.Next(-ShipLimitArea, ShipLimitArea)), random, -ShipLimitArea, ShipLimitArea);
                 ship.LoadContent(Content);
 
+
+
                 //Adiciona o elemento acabado de criar à lista
-                ships.Add(ship);
+               ships.Add(ship);
+
             }
-            // TODO: use this.Content to load your game content here
+         
 
         }
 
-        /// <summary>
-        /// UnloadContent will be called once per game and is the place to unload
-        /// game-specific content.
-        /// </summary>
+      
         protected override void UnloadContent()
         {
-            // TODO: Unload any non ContentManager content here
+           
         }
 
-        /// <summary>
-        /// Allows the game to run logic such as updating the world,
-        /// checking for collisions, gathering input, and playing audio.
-        /// </summary>
-        /// <param name="gameTime">Provides a snapshot of timing values.</param>
+        
         protected override void Update(GameTime gameTime)
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
@@ -102,48 +95,61 @@ namespace Game1
 
             foreach (Ship ship in ships)
             {
+                Camera.Update(gameTime, GraphicsDevice, ship);
                 if (ship.ShipStatus == true)
                 {
-                    ship.Speed -= .000005f*ship.Position.Z;  // somente para dar uma ideia de aceleração. Pode ser apagada a linha.
+
                     ship.Update(gameTime); }
 
-                else if (ship.ShipStatus == false && ship.Speed > 0f)
-                {
-                        
-                    Vector3 pos = new Vector3(random.Next(-ShipSeedArea, ShipSeedArea), random.Next(-ShipSeedArea, ShipSeedArea), ShipLimitArea);
-                    ship.Position = pos;
-                    ship.ShipStatus = true;
-                    ship.DisplayLimitFront = -ShipLimitArea;
-                }
-                else if (ship.ShipStatus == false && ship.Speed < 0f)
-                {
+       
 
-                    Vector3 pos = new Vector3(random.Next(-ShipSeedArea, ShipSeedArea), random.Next(-ShipSeedArea, ShipSeedArea), -ShipLimitArea);
-                    ship.Position = pos;
-                    ship.ShipStatus = true;
-                    ship.DisplayLimitBack = ShipLimitArea;
-                }
+
+                
+
+                                else if (ship.ShipStatus == false && ship.Speed > 0f)
+                                {
+
+                                    Vector3 pos = new Vector3(random.Next(-ShipSeedArea, ShipSeedArea), random.Next(-ShipSeedArea, ShipSeedArea), ShipLimitArea);
+                                    ship.Position = pos;
+                                    ship.ShipStatus = true;
+                                    ship.DisplayLimitFront = -ShipLimitArea;
+
+                                }
+                                else if (ship.ShipStatus == false && ship.Speed < 0f)
+                                {
+
+                                    Vector3 pos = new Vector3(random.Next(-ShipSeedArea, ShipSeedArea), random.Next(-ShipSeedArea, ShipSeedArea), -ShipLimitArea);
+                                    ship.Position = pos;
+                                    ship.ShipStatus = true;
+                                    ship.DisplayLimitBack = ShipLimitArea;
+
+                                }
+
+                    
+
+
+
+             
 
             }
-
-                base.Update(gameTime);
+            
+            base.Update(gameTime);
         }
 
-        /// <summary>
-        /// This is called when the game should draw itself.
-        /// </summary>
-        /// <param name="gameTime">Provides a snapshot of timing values.</param>
+
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             foreach (Ship ship in ships)
             {
-                if(ship.ShipStatus == true)
-                ship.Draw(camera);
+                if (Camera.frustum.Intersects(ship.boundingSphere)) {
+                    if (ship.ShipStatus)
+                        ship.Draw();
+                }
             }
-
-
+            skybox.Draw(Camera.View,Camera.Projection,Camera.getPosition());
+            DebugShapeRenderer.Draw(gameTime, Camera.View, Camera.Projection);
             base.Draw(gameTime);
         }
     }
