@@ -18,8 +18,8 @@ namespace Game1
 
 
 
-        private static int ShipSeedArea  = 5000;
-        private static int ShipLimitArea = 6000;
+        private static int ShipSeedArea  = 500;
+        private static int ShipLimitArea = 600;
         private static int ShipCount = 1000;
 
 
@@ -69,12 +69,12 @@ namespace Game1
             {
 
                Ship ship = new Ship(new Vector3(random.Next(-ShipSeedArea, ShipSeedArea), random.Next(-ShipSeedArea, ShipSeedArea), random.Next(-ShipLimitArea, ShipLimitArea)), random, -ShipLimitArea, ShipLimitArea);
-                ship.LoadContent(Content);
+               ship.LoadContent(Content);
 
 
 
                 //Adiciona o elemento acabado de criar à lista
-               ships.Add(ship);
+                ships.Add(ship);
 
             }
          

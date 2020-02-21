@@ -101,13 +101,14 @@ namespace Game1
             this.position = position;
             this.world = Matrix.CreateTranslation(position);
             // rotação
-            this.rot = Quaternion.CreateFromAxisAngle(world.Up, MathHelper.TwoPi);
-            this.speed = (float)(Math.Pow(-1, (random.Next(-1, 1)))*(random.Next(1, 10))/10); // para gerar velocidades positivas e negativas excluíndo o zero
-           
+            this.speed = (float)(Math.Pow(-1, (random.Next(-1, 1))) * (random.Next(1, 10)) / 100); // para gerar velocidades positivas e negativas excluíndo o zero
+            if (speed > 0) {this.rot = Quaternion.CreateFromAxisAngle(world.Up, MathHelper.Pi);}
+            if (speed < 0) { this.rot = Quaternion.CreateFromAxisAngle(world.Up, MathHelper.TwoPi); }
             this.ShipStatus = true;
             this.displayLimitFront = displayLimitFront;
             this.displayLimitBack = displayLimitBack;
             GetPosicionMessage();
+
         }
 
     
@@ -154,7 +155,7 @@ namespace Game1
                 foreach (BasicEffect effect in mesh.Effects)
                 {
                     effect.EnableDefaultLighting();
-                    effect.World =  Matrix.CreateTranslation(position) * Matrix.CreateFromQuaternion(Rotation);
+                    effect.World = Matrix.CreateFromQuaternion(Rotation) * Matrix.CreateTranslation(position) ;
                     effect.View = Camera.View;
                     effect.Projection = Camera.Projection;
      
