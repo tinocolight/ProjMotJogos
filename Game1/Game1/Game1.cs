@@ -23,6 +23,7 @@ namespace Game1
         private static int ShipCount = 1000;
 
 
+
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         Skybox skybox;
@@ -38,7 +39,7 @@ namespace Game1
             //  graphics.SynchronizeWithVerticalRetrace = true;
             graphics.PreferMultiSampling = true;
             graphics.GraphicsProfile = GraphicsProfile.Reach;
-           graphics.GraphicsProfile = GraphicsProfile.HiDef;
+            graphics.GraphicsProfile = GraphicsProfile.HiDef;
             graphics.PreferredBackBufferWidth = 1200;
             graphics.PreferredBackBufferHeight = 800;
             graphics.IsFullScreen = false;

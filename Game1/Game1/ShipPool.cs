@@ -11,8 +11,6 @@ namespace Game1
 {
     class ShipPool
     {
-
-
         bool currentShipStatus;
 
 
@@ -24,8 +22,15 @@ namespace Game1
 
         }
 
-        protected override void Update()
+        public void Update(GameTime gameTime)
         {
+
+        }
+
+
+        public void Draw()
+        {
+
 
         }
 
