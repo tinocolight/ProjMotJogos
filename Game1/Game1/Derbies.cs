@@ -31,7 +31,7 @@ namespace Game1
                 foreach (BasicEffect effect in mesh.Effects)
                 {
                     effect.EnableDefaultLighting();
-                    effect.World = Matrix.CreateTranslation(0, 0, 0);
+                    effect.World = Matrix.CreateTranslation(0, -150, 500);
                     effect.View = Camera.View;
                     effect.Projection = Camera.Projection;
                 }

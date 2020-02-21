@@ -41,6 +41,7 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Derbies.cs" />
     <Compile Include="Old_Unused_Classes\Camera_old.cs" />
     <Compile Include="DebugShapeRenderer.cs" />
     <Compile Include="ShipModel.cs" />

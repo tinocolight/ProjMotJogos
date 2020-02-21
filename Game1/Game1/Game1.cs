@@ -18,7 +18,7 @@ namespace Game1
 
 
 
-        private static int ShipSeedArea  = 500;
+        private static int ShipSeedArea  = 200;
         private static int ShipLimitArea = 600;
         private static int ShipCount = 1000;
 
@@ -27,6 +27,7 @@ namespace Game1
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         Skybox skybox;
+        Derbies derbies;
         List<Ship> ships;
         //Camera camera;
         Random random;
@@ -56,6 +57,8 @@ namespace Game1
             random = new Random();
 
 
+
+
             ships = new List<Ship>();
             //base está a chamar o construtor de uma classe acima de  Game1
             base.Initialize();
@@ -66,11 +69,14 @@ namespace Game1
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             skybox = new Skybox(Content);
+            derbies = new Derbies(Content);
+
             for (int i = 0; i <= ShipCount; i++)
             {
 
                Ship ship = new Ship(new Vector3(random.Next(-ShipSeedArea, ShipSeedArea), random.Next(-ShipSeedArea, ShipSeedArea), random.Next(-ShipLimitArea, ShipLimitArea)), random, -ShipLimitArea, ShipLimitArea);
                ship.LoadContent(Content);
+
 
 
 
@@ -151,6 +157,7 @@ namespace Game1
                 }
             }
             skybox.Draw(Camera.View,Camera.Projection,Camera.getPosition());
+            derbies.Draw();
             DebugShapeRenderer.Draw(gameTime, Camera.View, Camera.Projection);
             base.Draw(gameTime);
         }
