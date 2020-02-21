@@ -39,7 +39,7 @@ namespace Game1
         public Skybox(ContentManager Content)
         {
             skyBox = Content.Load<Model>("modelo/cube");
-            skyBoxTexture = Content.Load<TextureCube>("skyboxes/deserto");
+            skyBoxTexture = Content.Load<TextureCube>("skyboxes/purple_nebula");
             skyBoxEffect = Content.Load<Effect>("shaders/SkyBox");
 
 
