@@ -146,6 +146,7 @@ namespace Game1
                 if (Camera.frustum.Intersects(ship.boundingSphere)) {
                     if (ship.ShipStatus)
                         ship.Draw();
+                   
                 }
             }
             skybox.Draw(Camera.View,Camera.Projection,Camera.getPosition());
