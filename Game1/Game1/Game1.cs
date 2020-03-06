@@ -26,7 +26,7 @@ namespace Game1
 
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        Skybox skybox;
+       // Skybox skybox;
         Derbies derbies;
         List<Ship> ships;
         //Camera camera;
@@ -68,7 +68,7 @@ namespace Game1
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            skybox = new Skybox(Content);
+           // skybox = new Skybox(Content);
             derbies = new Derbies(Content);
 
             for (int i = 0; i <= ShipCount; i++)
@@ -156,7 +156,7 @@ namespace Game1
                    
                 }
             }
-            skybox.Draw(Camera.View,Camera.Projection,Camera.getPosition());
+           // skybox.Draw(Camera.View,Camera.Projection,Camera.getPosition());
             derbies.Draw();
             DebugShapeRenderer.Draw(gameTime, Camera.View, Camera.Projection);
             base.Draw(gameTime);

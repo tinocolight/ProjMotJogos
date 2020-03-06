@@ -20,7 +20,7 @@ namespace Game1
         }
         public Derbies(ContentManager content)
         {
-            model = content.Load<Model>("modelo\\PISTA_ESPACIAL");
+            model = content.Load<Model>("modelo\\sky_sphere");
         }
 
         public void Draw()
@@ -30,8 +30,8 @@ namespace Game1
 
                 foreach (BasicEffect effect in mesh.Effects)
                 {
-                    effect.EnableDefaultLighting();
-                    effect.World = Matrix.CreateTranslation(0, -150, 500);
+                    //effect.EnableDefaultLighting();
+                    effect.World = Matrix.CreateTranslation(0, -150, -4000);
                     effect.View = Camera.View;
                     effect.Projection = Camera.Projection;
                 }

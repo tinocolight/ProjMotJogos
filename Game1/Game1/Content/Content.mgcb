@@ -27,12 +27,12 @@
 /processorParam:RotationX=0
 /processorParam:RotationY=0
 /processorParam:RotationZ=0
-/processorParam:Scale=1
+/processorParam:Scale=1E+08
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
 /build:modelo/cube.fbx
 
-#begin modelo/PISTA_ESPACIAL.FBX
+#begin modelo/PISTA.FBX
 /importer:FbxImporter
 /processor:ModelProcessor
 /processorParam:ColorKeyColor=0,0,0,0
@@ -45,11 +45,30 @@
 /processorParam:ResizeTexturesToPowerOfTwo=False
 /processorParam:RotationX=0
 /processorParam:RotationY=0
-/processorParam:RotationZ=180
+/processorParam:RotationZ=0
 /processorParam:Scale=1
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
-/build:modelo/PISTA_ESPACIAL.FBX
+/build:modelo/PISTA.FBX
+
+#begin modelo/sky_sphere.FBX
+/importer:FbxImporter
+/processor:ModelProcessor
+/processorParam:ColorKeyColor=0,0,0,0
+/processorParam:ColorKeyEnabled=True
+/processorParam:DefaultEffect=BasicEffect
+/processorParam:GenerateMipmaps=True
+/processorParam:GenerateTangentFrames=False
+/processorParam:PremultiplyTextureAlpha=True
+/processorParam:PremultiplyVertexColors=True
+/processorParam:ResizeTexturesToPowerOfTwo=False
+/processorParam:RotationX=0
+/processorParam:RotationY=0
+/processorParam:RotationZ=0
+/processorParam:Scale=0.25
+/processorParam:SwapWindingOrder=False
+/processorParam:TextureFormat=Compressed
+/build:modelo/sky_sphere.FBX
 
 #begin modelo/TESTE_COM_TEXTURAS.FBX
 /importer:FbxImporter
@@ -63,7 +82,7 @@
 /processorParam:PremultiplyVertexColors=True
 /processorParam:ResizeTexturesToPowerOfTwo=False
 /processorParam:RotationX=-90
-/processorParam:RotationY=90
+/processorParam:RotationY=0
 /processorParam:RotationZ=-90
 /processorParam:Scale=0.01
 /processorParam:SwapWindingOrder=False
@@ -87,6 +106,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:skyboxes/deserto.dds
+
+#begin skyboxes/flesh.dds
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:skyboxes/flesh.dds
 
 #begin skyboxes/montanhas.dds
 /importer:TextureImporter
