@@ -41,6 +41,7 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Ovulo.cs" />
     <Compile Include="Derbies.cs" />
     <Compile Include="Old_Unused_Classes\Camera_old.cs" />
     <Compile Include="DebugShapeRenderer.cs" />
@@ -59,6 +60,7 @@
     <Compile Include="ShipPool.cs" />
     <Compile Include="Camera.cs" />
     <Compile Include="Skybox.cs" />
+    <Compile Include="Sperm.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">

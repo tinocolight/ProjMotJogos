@@ -170,7 +170,7 @@ namespace Game1
             target = position + direction;
         }
 
-        static public void Update(GameTime gameTime, GraphicsDevice graphics, Ship ship)
+        static public void Update(GameTime gameTime, GraphicsDevice graphics, Sperm sperm)
         {
 
             KeyboardState kb = Keyboard.GetState();
@@ -272,14 +272,14 @@ namespace Game1
                 drawNormals = !drawNormals;
             }
 
-            UpdateViewMatrix(ship);
+            UpdateViewMatrix(sperm);
             mouseStateAnterior = mouseState;
             keyStateAnterior = kb;
 
             positionAnterior = position;
         }
 
-        static private void UpdateViewMatrix(Ship ship = null)
+        static private void UpdateViewMatrix(Sperm sperm = null)
         {
 
 
@@ -306,13 +306,15 @@ namespace Game1
                 Vector3 transformedReference =
                     Vector3.Transform(thirdPersonReference, rotationMatrix);
 
-                Vector3 cameraPosition = transformedReference + ship.Position;
+                Vector3 cameraPosition = transformedReference + sperm.Position;
 
-                View = Matrix.CreateLookAt(cameraPosition, ship.Position + rotationMatrix.Forward * 3,
+                View = Matrix.CreateLookAt(cameraPosition, sperm.Position + rotationMatrix.Forward * 3,
                     Vector3.Cross(rotationMatrix.Left, transformedReference));
 
                 position = cameraPosition;
-                direction = ship.Position - position;
+                direction = sperm.Position - position;
+                //Console.WriteLine("Camera Direction" + direction + "Camera Position" + position);
+
 
             }
 

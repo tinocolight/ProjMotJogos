@@ -18,17 +18,21 @@ namespace Game1
 
 
 
-        private static int ShipSeedArea  = 200;
-        private static int ShipLimitArea = 600;
-        private static int ShipCount = 1000;
+        private static int ShipSeedArea  = 1500;
+        private static int ShipLimitArea = 1000;
+        private static int ShipCount = 500;
 
 
 
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        Sperm sperm;
        // Skybox skybox;
         Derbies derbies;
+        Ovulo ovulo;
         List<Ship> ships;
+        ShipPool shipPool;
+
         //Camera camera;
         Random random;
 
@@ -55,11 +59,20 @@ namespace Game1
             Camera.Initialize(GraphicsDevice);
             DebugShapeRenderer.Initialize(GraphicsDevice);
             random = new Random();
+            sperm = new Sperm(new Vector3(-100,-100,-100), ShipSeedArea, ShipLimitArea);
 
 
-
-
+            shipPool = new ShipPool(Content, graphics);
+            
             ships = new List<Ship>();
+
+            for(int i = 0; i < ShipCount - 1 ; i++)
+            {
+                // vamos passar à lista de ships a referência de um determinado numero de objectos do tipo ship já criados
+                ships.Add (shipPool.GetObject());
+
+            }
+
             //base está a chamar o construtor de uma classe acima de  Game1
             base.Initialize();
         }
@@ -70,7 +83,9 @@ namespace Game1
             spriteBatch = new SpriteBatch(GraphicsDevice);
            // skybox = new Skybox(Content);
             derbies = new Derbies(Content);
-
+            ovulo = new Ovulo(Content);
+            sperm.LoadContent(Content);
+            /*
             for (int i = 0; i <= ShipCount; i++)
             {
 
@@ -84,7 +99,8 @@ namespace Game1
                 ships.Add(ship);
 
             }
-         
+            */
+
 
         }
 
@@ -100,19 +116,73 @@ namespace Game1
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
+            sperm.Update(gameTime);
+            shipPool.Update(gameTime);
+
+            for (int i = 0; i < ships.Count; i++)
+            {
+                //Devolve à pool ships mortas
+               if (ships[i].ShipStatus == false) {
+                    shipPool.ReturnObjectToPool(ships[i]);
+                    ships.RemoveAt(i);
+                   
+                }
+
+                //Vai buscar novos Objectos do tipo Ship à pool caso o numero caia abaixo do definido
+                if (ships.Count < ShipCount) {
+                    Ship obj = shipPool.GetObject();
+                    if (obj.boundingSphere.Intersects(sperm.boundingSphere)) { obj.ShipStatus = false; Console.WriteLine("Boom"); }
+                    if (derbies.boundingSphere.Intersects(sperm.boundingSphere))
+                    {
+                        sperm.SpermStatus = true;
+                        Console.WriteLine("Boom");
+                    }
+                    else { sperm.SpermStatus = false; }
+                    if (/*ship.ShipStatus == false && */ obj.Speed > 0f)
+                    {
+
+                        Vector3 pos = new Vector3(random.Next(-ShipSeedArea, ShipSeedArea), random.Next(-ShipSeedArea, ShipSeedArea), ShipLimitArea);
+                        obj.Position = pos;
+                        //ships[i].ShipStatus = true;
+                        obj.DisplayLimitFront = -ShipLimitArea;
+
+                    }
+                    if (/*ship.ShipStatus == false &&*/ obj.Speed < 0f)
+                    {
+
+                        Vector3 pos = new Vector3(random.Next(-ShipSeedArea, ShipSeedArea), random.Next(-ShipSeedArea, ShipSeedArea), -ShipLimitArea);
+                        obj.Position = pos;
+                        //ships[i].ShipStatus = true;
+                        obj.DisplayLimitBack = ShipLimitArea;
+
+                    }
+
+                   
+                    ships.Add(obj);
+
+                }
+
+                
+            }
+
+
             foreach (Ship ship in ships)
             {
-                Camera.Update(gameTime, GraphicsDevice, ship);
+
+                Camera.Update(gameTime, GraphicsDevice, sperm);
+                /* if (ship.boundingSphere.Intersects(ship.boundingSphere))
+                 {
+                     ship.ShipStatus = false;
+                 }*/
+               
+
                 if (ship.ShipStatus == true)
                 {
 
                     ship.Update(gameTime); }
 
        
-
-
-                
-
+                /*
                                 else if (ship.ShipStatus == false && ship.Speed > 0f)
                                 {
 
@@ -131,16 +201,11 @@ namespace Game1
                                     ship.DisplayLimitBack = ShipLimitArea;
 
                                 }
-
+                                */
                     
-
-
-
-             
-
             }
             
-            base.Update(gameTime);
+           base.Update(gameTime);
         }
 
 
@@ -158,6 +223,8 @@ namespace Game1
             }
            // skybox.Draw(Camera.View,Camera.Projection,Camera.getPosition());
             derbies.Draw();
+            ovulo.Draw();
+            sperm.Draw();
             DebugShapeRenderer.Draw(gameTime, Camera.View, Camera.Projection);
             base.Draw(gameTime);
         }

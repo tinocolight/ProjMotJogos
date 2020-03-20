@@ -9,33 +9,20 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Game1
 {
-    public class Derbies
+    public class Ovulo
     {
         private Model model;
-       public BoundingSphere boundingSphere;
         public ModelMesh mesh;
         public Model Model
         {
             get { return model; }
             set { model = value; }
         }
-        public Derbies(ContentManager content)
+        public Ovulo(ContentManager content)
         {
-            model = content.Load<Model>("modelo\\sky_sphere");
-            BoundingSphereSetDim();
+            model = content.Load<Model>("modelo\\nucleo");
         }
 
-        public void BoundingSphereSetDim()
-        {
-            Random random = new Random();
-
-
-            foreach (ModelMesh mesh in this.model.Meshes)
-            {
-                this.boundingSphere= BoundingSphere.CreateMerged(this.boundingSphere, mesh.BoundingSphere);
-            }
-
-        }
         public void Draw()
         {
             foreach (ModelMesh mesh in model.Meshes)
@@ -48,7 +35,6 @@ namespace Game1
                     effect.View = Camera.View;
                     effect.Projection = Camera.Projection;
                 }
-                DebugShapeRenderer.AddBoundingSphere(boundingSphere, Color.Red);
                 mesh.Draw();
             }
         }

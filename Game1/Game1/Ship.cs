@@ -144,6 +144,7 @@ namespace Game1
             boundingSphere.Center = position;
 
             posicionMessage.V3Value = position;
+           // Console.WriteLine(position);
             MessageBus.Instance.SendMessage(posicionMessage);
         }
 
@@ -158,8 +159,9 @@ namespace Game1
                     effect.World = Matrix.CreateFromQuaternion(Rotation) * Matrix.CreateTranslation(position) ;
                     effect.View = Camera.View;
                     effect.Projection = Camera.Projection;
-     
-                }          
+                   
+
+                }
                 mesh.Draw();
             }
 
