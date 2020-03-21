@@ -20,10 +20,10 @@ namespace Game1
 
         private static int ShipSeedArea  = 1500;
         private static int ShipLimitArea = 1000;
-        private static int ShipCount = 500;
+        private static int ShipCount = 1000;
 
-
-
+        int point = 0;
+        SpriteFont font;
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         Sperm sperm;
@@ -80,8 +80,10 @@ namespace Game1
         protected override void LoadContent()
         {
             // Create a new SpriteBatch, which can be used to draw textures.
+
             spriteBatch = new SpriteBatch(GraphicsDevice);
-           // skybox = new Skybox(Content);
+            font = Content.Load<SpriteFont>("Score");
+            // skybox = new Skybox(Content);
             derbies = new Derbies(Content);
             ovulo = new Ovulo(Content);
             sperm.LoadContent(Content);
@@ -131,13 +133,7 @@ namespace Game1
                 //Vai buscar novos Objectos do tipo Ship à pool caso o numero caia abaixo do definido
                 if (ships.Count < ShipCount) {
                     Ship obj = shipPool.GetObject();
-                    if (obj.boundingSphere.Intersects(sperm.boundingSphere)) { obj.ShipStatus = false; Console.WriteLine("Boom"); }
-                    if (derbies.boundingSphere.Intersects(sperm.boundingSphere))
-                    {
-                        sperm.SpermStatus = true;
-                        Console.WriteLine("Boom");
-                    }
-                    else { sperm.SpermStatus = false; }
+                   
                     if (/*ship.ShipStatus == false && */ obj.Speed > 0f)
                     {
 
@@ -159,7 +155,12 @@ namespace Game1
 
                    
                     ships.Add(obj);
-
+                    
+                    if (derbies.boundingSphere.Intersects(sperm.boundingSphere))
+                    {
+                        sperm.SpermStatus = true;
+                    }
+                    else { sperm.Position= new Vector3(30, 10, 30); }
                 }
 
                 
@@ -168,7 +169,7 @@ namespace Game1
 
             foreach (Ship ship in ships)
             {
-
+                if (ship.boundingSphere.Intersects(sperm.boundingSphere)) { ship.ShipStatus = false; Console.WriteLine(point); point++; }
                 Camera.Update(gameTime, GraphicsDevice, sperm);
                 /* if (ship.boundingSphere.Intersects(ship.boundingSphere))
                  {
@@ -221,12 +222,20 @@ namespace Game1
                    
                 }
             }
-           // skybox.Draw(Camera.View,Camera.Projection,Camera.getPosition());
+           
+            // skybox.Draw(Camera.View,Camera.Projection,Camera.getPosition());
             derbies.Draw();
             ovulo.Draw();
             sperm.Draw();
             DebugShapeRenderer.Draw(gameTime, Camera.View, Camera.Projection);
             base.Draw(gameTime);
+            /*spriteBatch.Begin();
+
+
+            // this being the line that answers your question
+            spriteBatch.DrawString(font, "Score: " + point, new Vector2(100, 100), Color.White);
+            
+            spriteBatch.End();*/
         }
     }
 }
