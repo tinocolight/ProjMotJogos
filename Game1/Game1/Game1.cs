@@ -20,9 +20,9 @@ namespace Game1
 
         private static int ShipSeedArea  = 1500;
         private static int ShipLimitArea = 1000;
-        private static int ShipCount = 1000;
+        private static int ShipCount = 3000;
 
-        int point = 10;
+        int point =0;
         bool win = false;
         SpriteFont font;
         GraphicsDeviceManager graphics;
@@ -46,8 +46,8 @@ namespace Game1
             graphics.PreferMultiSampling = true;
             graphics.GraphicsProfile = GraphicsProfile.Reach;
             graphics.GraphicsProfile = GraphicsProfile.HiDef;
-            graphics.PreferredBackBufferWidth = 1200;
-            graphics.PreferredBackBufferHeight = 800;
+            graphics.PreferredBackBufferWidth = 1920;
+            graphics.PreferredBackBufferHeight = 1080;
             graphics.IsFullScreen = false;
             Content.RootDirectory = "Content";
 
@@ -153,16 +153,16 @@ namespace Game1
                         obj.DisplayLimitBack = ShipLimitArea;
 
                     }
-
+                    
                    
                     ships.Add(obj);
-                    if (ovulo.boundingSphere.Intersects(sperm.boundingSphere) && point == 10) { win = true; Console.WriteLine("WINNN"); }
+                    if (ovulo.boundingSphere.Intersects(sperm.boundingSphere) && point >= 10) { win = true; Console.WriteLine("WINNN"); }
 
                         if (derbies.boundingSphere.Intersects(sperm.boundingSphere))
                     {
                         sperm.SpermStatus = true;
                     }
-                    else { sperm.Position= new Vector3(30, 10, 30); }
+                    else { sperm.Position= new Vector3(100, 100, -2000); }
                 }
 
                 
@@ -214,7 +214,10 @@ namespace Game1
 
         protected override void Draw(GameTime gameTime)
         {
+            
             GraphicsDevice.Clear(Color.CornflowerBlue);
+            derbies.Draw();
+            ovulo.Draw();
 
             foreach (Ship ship in ships)
             {
@@ -226,18 +229,22 @@ namespace Game1
             }
 
             // skybox.Draw(Camera.View,Camera.Projection,Camera.getPosition());
-            derbies.Draw();
-            ovulo.Draw();
+           
             sperm.Draw();
-            DebugShapeRenderer.Draw(gameTime, Camera.View, Camera.Projection);
-            base.Draw(gameTime);
-/*
+          
+           
+            
+             //DebugShapeRenderer.Draw(gameTime, Camera.View, Camera.Projection);
+
+
             spriteBatch.Begin();
             if (!win) { 
             spriteBatch.DrawString(font, "Score: " + point, new Vector2(100, 100), Color.White); }
-            else{spriteBatch.DrawString(font, "Win: " , new Vector2(100, 100), Color.White);}
-            
-            spriteBatch.End();*/
+            else{spriteBatch.DrawString(font, "Win " , new Vector2(100, 100), Color.White);}
+            spriteBatch.End();
+            GraphicsDevice.BlendState = BlendState.Opaque;
+            GraphicsDevice.DepthStencilState = DepthStencilState.DepthRead;
+            base.Draw(gameTime);
         }
     }
 }

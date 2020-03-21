@@ -27,7 +27,7 @@ namespace Game1
 
         public void BoundingSphereSetDim()
         {
-            Random random = new Random();
+           
 
 
             foreach (ModelMesh mesh in this.model.Meshes)

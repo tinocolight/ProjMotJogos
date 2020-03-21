@@ -11,7 +11,7 @@ namespace Game1
 {
     class Sperm
     {    //Posição inicial da camâra
-        static Vector3 position = new Vector3(30, 10, 30);
+        static Vector3 position = new Vector3(100, 100,- 2000);
 
         //Vector de direção inicial
       // static Vector3  direction = new Vector3(0, 0, -1f);
@@ -21,7 +21,7 @@ namespace Game1
         public BoundingSphere boundingSphere;
 
         //Velocidade do movimento (translação)
-        static private float moveSpeed = 2f;
+        static private float moveSpeed = 5f;
 
         Message posicionMessage;
         private float displayLimitFront;

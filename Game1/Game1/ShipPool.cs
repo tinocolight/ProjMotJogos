@@ -22,9 +22,9 @@ namespace Game1
        
 
 
-        private static int ShipSeedArea = 1500;
-        private static int ShipLimitArea = 1000;
-        private static int ShipCount = 1100;
+        private static int ShipSeedArea = 1500*2;
+        private static int ShipLimitArea = 1000*2;
+        private static int ShipCount = 11000;
 
 
         protected void Initialize()

@@ -28,7 +28,7 @@ namespace Game1
         }
         public void BoundingSphereSetDim()
         {
-            Random random = new Random();
+          
 
 
             foreach (ModelMesh mesh in this.model.Meshes)
@@ -46,7 +46,7 @@ namespace Game1
                 foreach (BasicEffect effect in mesh.Effects)
                 {
                     //effect.EnableDefaultLighting();
-                    effect.World = Matrix.CreateTranslation(0, 400, 5000);
+                    //effect.World = Matrix.CreateTranslation(0, 400, 5000);
                     effect.View = Camera.View;
                     effect.Projection = Camera.Projection;
                 }
