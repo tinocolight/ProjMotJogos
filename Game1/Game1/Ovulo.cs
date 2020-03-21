@@ -13,6 +13,8 @@ namespace Game1
     {
         private Model model;
         public ModelMesh mesh;
+        public BoundingSphere boundingSphere;
+
         public Model Model
         {
             get { return model; }
@@ -21,6 +23,19 @@ namespace Game1
         public Ovulo(ContentManager content)
         {
             model = content.Load<Model>("modelo\\nucleo");
+            BoundingSphereSetDim();
+
+        }
+        public void BoundingSphereSetDim()
+        {
+            Random random = new Random();
+
+
+            foreach (ModelMesh mesh in this.model.Meshes)
+            {
+                this.boundingSphere = BoundingSphere.CreateMerged(this.boundingSphere, mesh.BoundingSphere);
+            }
+
         }
 
         public void Draw()
@@ -31,10 +46,12 @@ namespace Game1
                 foreach (BasicEffect effect in mesh.Effects)
                 {
                     //effect.EnableDefaultLighting();
-                    effect.World = Matrix.CreateTranslation(0, -300, -8000);
+                    effect.World = Matrix.CreateTranslation(0, 400, 5000);
                     effect.View = Camera.View;
                     effect.Projection = Camera.Projection;
                 }
+                DebugShapeRenderer.AddBoundingSphere(boundingSphere, Color.Red);
+
                 mesh.Draw();
             }
         }

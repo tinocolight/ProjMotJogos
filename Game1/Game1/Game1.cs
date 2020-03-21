@@ -22,7 +22,8 @@ namespace Game1
         private static int ShipLimitArea = 1000;
         private static int ShipCount = 1000;
 
-        int point = 0;
+        int point = 10;
+        bool win = false;
         SpriteFont font;
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
@@ -155,8 +156,9 @@ namespace Game1
 
                    
                     ships.Add(obj);
-                    
-                    if (derbies.boundingSphere.Intersects(sperm.boundingSphere))
+                    if (ovulo.boundingSphere.Intersects(sperm.boundingSphere) && point == 10) { win = true; Console.WriteLine("WINNN"); }
+
+                        if (derbies.boundingSphere.Intersects(sperm.boundingSphere))
                     {
                         sperm.SpermStatus = true;
                     }
@@ -219,21 +221,21 @@ namespace Game1
                 if (Camera.frustum.Intersects(ship.boundingSphere)) {
                     if (ship.ShipStatus)
                         ship.Draw();
-                   
+
                 }
             }
-           
+
             // skybox.Draw(Camera.View,Camera.Projection,Camera.getPosition());
             derbies.Draw();
             ovulo.Draw();
             sperm.Draw();
             DebugShapeRenderer.Draw(gameTime, Camera.View, Camera.Projection);
             base.Draw(gameTime);
-            /*spriteBatch.Begin();
-
-
-            // this being the line that answers your question
-            spriteBatch.DrawString(font, "Score: " + point, new Vector2(100, 100), Color.White);
+/*
+            spriteBatch.Begin();
+            if (!win) { 
+            spriteBatch.DrawString(font, "Score: " + point, new Vector2(100, 100), Color.White); }
+            else{spriteBatch.DrawString(font, "Win: " , new Vector2(100, 100), Color.White);}
             
             spriteBatch.End();*/
         }

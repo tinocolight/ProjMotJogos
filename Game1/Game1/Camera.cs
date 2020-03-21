@@ -301,7 +301,7 @@ namespace Game1
                 Matrix rotationMatrix = Matrix.CreateFromQuaternion(rotation);
 
                 //Vector3 thirdPersonReference = new Vector3(0, 5f, 8f);
-                Vector3 thirdPersonReference = new Vector3(0, 25f, 100f);
+                Vector3 thirdPersonReference = new Vector3(-5f, -10f, -30f);
 
                 Vector3 transformedReference =
                     Vector3.Transform(thirdPersonReference, rotationMatrix);
@@ -312,7 +312,7 @@ namespace Game1
                     Vector3.Cross(rotationMatrix.Left, transformedReference));
 
                 position = cameraPosition;
-                direction = sperm.Position - position;
+                direction = sperm.Position -position;
                 //Console.WriteLine("Camera Direction" + direction + "Camera Position" + position);
 
 

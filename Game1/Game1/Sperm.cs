@@ -21,7 +21,7 @@ namespace Game1
         public BoundingSphere boundingSphere;
 
         //Velocidade do movimento (translação)
-        static private float moveSpeed = 0.01f;
+        static private float moveSpeed = 2f;
 
         Message posicionMessage;
         private float displayLimitFront;
@@ -121,36 +121,36 @@ namespace Game1
 
         static private void Foward()
         {
-            position.Z += position.Z*moveSpeed;
-            Console.WriteLine(position.Z);
+            position.Z = position.Z+moveSpeed;
+           // Console.WriteLine(position.Z);
         }
 
         static private void Backward()
         {
-            position.Z -= position.Z * moveSpeed;
-            Console.WriteLine(position.Z);
+            position.Z = position.Z -moveSpeed;
+           // Console.WriteLine(position.Z);
         }
 
         static private void Up()
         {
-            position.Y += position.Y*moveSpeed;
-             Console.WriteLine(position.Y);
+            position.Y = position.Y+moveSpeed;
+             //Console.WriteLine(position.Y);
         }
 
         static private void Down()
         {
-            position.Y -= position.Y * moveSpeed;
-            Console.WriteLine(position.Y);
+            position.Y = position.Y - moveSpeed;
+            //Console.WriteLine(position.Y);
         }
         static private void Right()
         {
-            position.X += position.X*moveSpeed;
-            Console.WriteLine(position.X);
+            position.X = position.X+moveSpeed;
+            //Console.WriteLine(position.X);
         }
         static private void Left()
         {
-            position.X -= position.X * moveSpeed;
-            Console.WriteLine(position.X);
+            position.X = position.X - moveSpeed;
+            //Console.WriteLine(position.X);
         }
 
 
@@ -202,7 +202,6 @@ namespace Game1
             boundingSphere.Center = position;
 
             posicionMessage.V3Value = position;
-            // Console.WriteLine(position);
             MessageBus.Instance.SendMessage(posicionMessage);
         }
 
